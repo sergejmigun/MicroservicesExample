@@ -1,0 +1,58 @@
+﻿@model MicroservicesExample.Areas.Orders.ViewModels.OrdersDetailsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.app = "ordersApp";
+}
+
+<div>
+    <h2>Order Details</h2>
+    <hr />
+    <div ng-controller="ordersDetailsController" ng-init="orderId = @Model.OrderId">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="example-text-input" class="col-2 col-form-label">Date</label>
+                    <div class="col-10">
+                        {{order.creationDate}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="example-text-input" class="col-2 col-form-label">Status</label>
+                    <div class="col-10">
+                        {{order.status}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="example-text-input" class="col-2 col-form-label">Customer</label>
+                    <div class="col-10">
+                        {{order.customer.name}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="example-text-input" class="col-2 col-form-label">Phone</label>
+                    <div class="col-10">
+                        {{order.customer.phone}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <hr />
+            @{
+                Func<dynamic, object> customButton = @<text><a class="btn btn-primary"
+                                                               style="margin-left: 15px;"
+                                                               ng-click="completeOrder()"
+                                                               ng-show="order.status !== 'Processed'">
+                    <i class="glyphicon glyphicon-check" style="margin-right: 15px;"></i>Complete Order
+                </a></text>;
+
+                ViewBag.CustomButton = customButton;
+            }
+
+            @Html.Partial("OrderedProductsView")
+        </div>
+    </div>
+</div>

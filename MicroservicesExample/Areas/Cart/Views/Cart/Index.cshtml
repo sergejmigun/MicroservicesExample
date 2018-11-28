@@ -1,0 +1,27 @@
+﻿@model MicroservicesExample.Areas.Cart.ViewModels.CartViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.app = "cartApp";
+}
+
+<div>
+    <h2>Cart</h2>
+    <div ng-controller="cartController">
+        @{
+            Func<dynamic, object> customButton = @<text><a class="btn btn-primary"
+                      style="margin-left: 15px;"
+                      ng-disabled="!orderedItems.items.length"
+                      data-toggle="modal"
+                      data-target="#completeCustomerModal">
+                <i class="glyphicon glyphicon-check" style="margin-right: 15px;"></i>Process Order
+            </a></text>;
+
+            ViewBag.CustomButton = customButton;
+        }
+
+        @Html.Partial("OrderedProductsView")
+        @Html.Partial("Partial/CompleteCustomerModal")
+    </div>
+</div>
+

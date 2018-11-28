@@ -1,0 +1,1 @@
+﻿angular.module("layoutApp", ['cartApp', 'ordersApp']); 

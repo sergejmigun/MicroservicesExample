@@ -1,0 +1,64 @@
+﻿@model MicroservicesExample.Areas.Products.ViewModels.ProductsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.app = "productsApp";
+}
+
+<div>
+    <h2>Produts</h2>
+    <div ng-controller="productsViewController">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products">
+                    <td width="100px">{{product.id}}</td>
+                    <td width="300px">{{product.title}}</td>
+                    <td>{{product.description}}</td>
+                    <td width="150px">{{product.price}}$</td>
+                    <td width="200px">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addToCartModal" ng-click="addToCart(product.id)">
+                                <i class="glyphicon glyphicon-shopping-cart" style="margin-right: 15px;"></i>Add to cart
+                            </button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#manageProductModal" ng-click="editProduct(product.id)">
+                                        <i class="glyphicon glyphicon-pencil" style="margin-right: 15px;"></i>
+                                        Edit
+                                    </a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="#" ng-click="deleteProduct(product.id)">
+                                        <i class="glyphicon glyphicon-trash" style="margin-right: 15px;"></i>Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-if="!products.length">
+                    <td class="text-center" colspan="5">No products</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#manageProductModal" ng-click="createProduct()">Create product</button>
+        </div>
+    </div>
+
+    @Html.Partial("Partial/ManageProductModal")
+</div>

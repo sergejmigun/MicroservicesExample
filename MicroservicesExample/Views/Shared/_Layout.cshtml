@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/site.min.css" rel="stylesheet">
+    <link href="~/css/site.min.css" rel="stylesheet">
+</head>
+<body ng-app="@ViewBag.app" ng-controller="layoutController">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav">
+                    <li ng-class="layout.activePage === 'products' ? 'active' : ''">
+                        <a href="@Url.RouteUrl("default", new { area = "Products", controller = "Products", action = "Index" })">
+                            <i class="glyphicon glyphicon-briefcase"></i>
+                            Products
+                        </a>
+                    </li>
+                    <li ng-class="layout.activePage === 'orders' ? 'active' : ''">
+                        <a href="@Url.RouteUrl("default", new { area = "Orders", controller = "Orders", action = "Index" })">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            Orders
+                            <span ng-if="layout.activeOrdersAmount" class="badge" style="margin-left: 5px;">{{layout.activeOrdersAmount}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-class="layout.activePage === 'cart' ? 'active' : ''">
+                    <a href="@Url.RouteUrl("default", new { area = "Cart", controller = "Cart", action = "Index" })">
+                        <i class="glyphicon glyphicon-shopping-cart"></i>
+                        Cart
+                        <span ng-if="layout.cartItemsAmount" class="badge" style="margin-left: 5px;">{{layout.cartItemsAmount}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Onion Example (Domain services)</p>
+        </footer>
+    </div>
+    <script src="~/js/core.min.js"></script>
+    <script src="~/js/apps.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

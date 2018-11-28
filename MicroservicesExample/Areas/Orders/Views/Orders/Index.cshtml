@@ -1,0 +1,57 @@
+﻿@model MicroservicesExample.Areas.Orders.ViewModels.OrdersViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.app = "ordersApp";
+}
+
+<div>
+    <h2>Orders</h2>
+    <div ng-controller="ordersViewController">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Products Count</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in orders">
+                    <td width="100px">{{order.id}}</td>
+                    <td width="300px">{{order.creationDate}}</td>
+                    <td>{{order.customer.name}} ({{order.customer.phone}})</td>
+                    <td>{{getProductsCount(order)}}</td>
+                    <td>{{order.total}}$</td>
+                    <td>{{order.status}}</td>
+                    <td width="200px">
+                        <div class="btn-group">
+                            <a class="btn btn-default" href="@Url.RouteUrl("default", new { area = "Orders", controller = "Orders", action = "Details" })/{{order.id}}">
+                                <i class="glyphicon glyphicon-pencil" style="margin-right: 15px;"></i>Manage Order
+                            </a>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="@Url.Action("Details", "Orders", new { area = "Orders" })/{{order.id}}" class="btn">
+                                        <i class="glyphicon glyphicon-pencil" style="margin-right: 15px;"></i>Manage Order
+                                    </a>
+                                </li>
+                                <li><a href="#" ng-click="deleteOrder(order.id)"><i class="glyphicon glyphicon-trash" style="margin-right: 15px;"></i>Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-if="!orders.length">
+                    <td class="text-center" colspan="6">No orders</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

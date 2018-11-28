@@ -1,0 +1,33 @@
+﻿// Configure bundling and minification for the project.
+// More info at https://go.microsoft.com/fwlink/?LinkId=808241
+[
+    {
+        "outputFileName": "wwwroot/css/site.min.css",
+        "inputFiles": [
+            "wwwroot/css/bootstrap.css",
+            "wwwroot/css/site.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/js/core.min.js",
+        "inputFiles": [
+            "wwwroot/js/core/**/*.js"
+        ],
+        "minify": {
+            "enabled": false,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    },
+    {
+        "outputFileName": "wwwroot/js/apps.min.js",
+        "inputFiles": [
+            "wwwroot/js/apps/**/*.js"
+        ],
+        "minify": {
+            "enabled": false,
+            "renameLocals": true
+        },
+        "sourceMap": false
+    }
+]
